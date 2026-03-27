@@ -1,285 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#0D4F8A" />
-  <meta name="description" content="Konekt by Sankofa — Clarity Before You Ride. Rwanda's first guaranteed fixed-fare transport platform." />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="theme-color" content="#0D4F8A"/>
   <title>Konekt by Sankofa</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#0f172a}
+body{font-family:'DM Sans',system-ui,sans-serif;color:#1A202C;-webkit-tap-highlight-color:transparent}
+:root{
+  --blue:#0D4F8A;--blue-mid:#1A6FB5;--blue-lt:#E8F4FD;
+  --green:#1E8048;--green-mid:#2EAB5F;--green-lt:#E8F8EF;
+  --red:#E74C3C;--amber:#F5A623;--text:#1A202C;--muted:#718096;
+  --border:#E2E8F0;--bg:#F4F7FB;--white:#FFFFFF;
+  --r:18px;--rs:10px;
+  --sh:0 4px 24px rgba(13,79,138,.10);--sh-sm:0 2px 8px rgba(0,0,0,.06)
+}
+#app{width:100%;max-width:430px;height:100vh;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+.status-bar{background:var(--blue);padding:10px 20px 8px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:600;color:white;font-family:'Sora',sans-serif;flex-shrink:0;z-index:20}
+.status-icons{display:flex;gap:8px;align-items:center}
+.screen{display:none;flex-direction:column;flex:1;overflow:hidden}
+.screen.active{display:flex}
+.screen-body{flex:1;overflow-y:auto;padding:20px 20px 100px;-webkit-overflow-scrolling:touch}
+.screen-body::-webkit-scrollbar{display:none}
+/* SPLASH */
+.splash-bg{position:absolute;inset:0;background:linear-gradient(160deg,var(--blue) 0%,#1557a0 45%,var(--green-mid) 100%);z-index:0}
+.splash-bg::before{content:'';position:absolute;width:350px;height:350px;background:rgba(255,255,255,.06);border-radius:50%;top:-80px;right:-80px}
+.splash-bg::after{content:'';position:absolute;width:280px;height:280px;background:rgba(46,171,95,.12);border-radius:50%;bottom:-60px;left:-60px}
+.splash-content{position:relative;z-index:1;flex:1;padding:48px 28px 36px;display:flex;flex-direction:column;color:white;overflow-y:auto}
+.splash-content::-webkit-scrollbar{display:none}
+.splash-logo{width:80px;height:80px;background:rgba(255,255,255,.12);border-radius:22px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;border:1px solid rgba(255,255,255,.2)}
+.splash-brand{font-family:'Sora',sans-serif;font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:6px}
+.splash-by{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:4px;letter-spacing:1px}
+.splash-by span{color:#a8e6c3;font-weight:600}
+.splash-tagline{font-size:16px;color:rgba(255,255,255,.85);font-style:italic;margin-bottom:28px}
+.lang-switch{display:flex;border:1px solid rgba(255,255,255,.3);border-radius:30px;overflow:hidden;width:fit-content;margin-bottom:28px}
+.lang-btn{padding:8px 18px;font-size:13px;font-weight:600;background:transparent;color:rgba(255,255,255,.65);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.lang-btn.active{background:white;color:var(--blue);border-radius:30px}
+.splash-stats{display:flex;gap:10px;margin-bottom:28px}
+.stat-card{flex:1;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:12px 8px;text-align:center}
+.stat-card strong{display:block;font-size:18px;font-weight:800;font-family:'Sora',sans-serif}
+.stat-card span{font-size:10px;color:rgba(255,255,255,.7);margin-top:2px;display:block}
+/* BUTTONS */
+.btn-primary{background:linear-gradient(135deg,var(--blue-mid),var(--blue));color:white;border:none;border-radius:var(--r);padding:17px 20px;font-size:15px;font-weight:700;font-family:'Sora',sans-serif;cursor:pointer;transition:transform .15s;box-shadow:0 6px 20px rgba(13,79,138,.35);display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-primary:active{transform:scale(.98)}
+.btn-ghost{background:rgba(255,255,255,.14);color:white;border:1px solid rgba(255,255,255,.3);border-radius:var(--r);padding:15px 20px;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer}
+.btn-outline{background:transparent;color:var(--blue-mid);border:1.5px solid var(--border);border-radius:var(--r);padding:15px 20px;font-size:15px;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-full{width:100%}
+.btn-danger{flex:1;padding:13px;background:#FEE2E2;color:#C0392B;border:none;border-radius:var(--rs);font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer}
+.btn-green{flex:1;padding:13px;background:var(--green-lt);color:var(--green);border:none;border-radius:var(--rs);font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer}
+.mt8{margin-top:8px}
+/* HOME */
+.home-header{background:linear-gradient(140deg,var(--blue) 0%,var(--blue-mid) 100%);padding:18px 20px 56px;flex-shrink:0}
+.home-header-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.greeting{font-size:19px;font-weight:700;color:white;font-family:'Sora',sans-serif}
+.greeting-sub{font-size:13px;color:rgba(255,255,255,.75);margin-top:2px}
+.avatar-btn{width:42px;height:42px;background:rgba(255,255,255,.18);border:none;border-radius:50%;color:white;font-size:13px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;flex-shrink:0}
+.search-bar{background:white;border-radius:14px;padding:13px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.search-bar span{color:var(--muted);font-size:14px}
+.home-body{flex:1;overflow-y:auto;padding:0 16px 100px;margin-top:-38px}
+.home-body::-webkit-scrollbar{display:none}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
+.quick-card{background:white;border-radius:var(--r);padding:16px 14px;cursor:pointer;box-shadow:var(--sh);transition:transform .15s;border:1.5px solid transparent}
+.quick-card:active{transform:scale(.97);border-color:var(--blue-mid)}
+.quick-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:8px}
+.quick-name{font-size:13px;font-weight:600}
+.quick-loc{font-size:11px;color:var(--muted);margin-top:1px}
+.section-label{font-size:15px;font-weight:700;margin-bottom:12px;font-family:'Sora',sans-serif}
+/* KRC */
+.krc-card{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-mid) 50%,var(--green-mid) 100%);border-radius:var(--r);padding:18px 18px 16px;margin-bottom:22px;cursor:pointer;position:relative;overflow:hidden}
+.krc-card::before{content:'';position:absolute;width:160px;height:160px;background:rgba(255,255,255,.06);border-radius:50%;top:-50px;right:-40px}
+.krc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;position:relative}
+.krc-badge{background:rgba(255,255,255,.18);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;color:white;display:inline-block;margin-bottom:8px}
+.krc-pts{font-size:34px;font-weight:800;color:white;font-family:'Sora',sans-serif;line-height:1}
+.krc-pts-lbl{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
+.krc-next{text-align:right}
+.krc-next-lbl{font-size:10px;color:rgba(255,255,255,.65)}
+.krc-next-val{font-size:18px;font-weight:800;color:white;font-family:'Sora',sans-serif}
+.krc-next-name{font-size:10px;color:rgba(255,255,255,.6)}
+.krc-bar{background:rgba(255,255,255,.2);border-radius:99px;height:5px;margin-bottom:8px}
+.krc-fill{background:white;border-radius:99px;height:5px}
+.krc-foot{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.7)}
+/* RIDE ITEMS */
+.ride-item{background:white;border-radius:var(--rs);padding:13px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh-sm);cursor:pointer;transition:transform .15s}
+.ride-item:active{transform:scale(.98)}
+.ride-icon-wrap{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ride-icon-wrap.moto{background:var(--blue-lt)}
+.ride-icon-wrap.bus{background:var(--green-lt)}
+.ride-info{flex:1;min-width:0}
+.ride-route{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ride-meta{font-size:11px;color:var(--muted);margin-top:2px}
+.ride-price{font-size:13px;font-weight:700;color:var(--blue-mid);flex-shrink:0}
+/* NAV */
+.bottom-nav{position:sticky;bottom:0;background:white;border-top:1px solid var(--border);padding:10px 8px 20px;display:flex;justify-content:space-around;z-index:10;flex-shrink:0}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;border:none;cursor:pointer;color:var(--muted);padding:6px 12px;border-radius:12px;transition:all .15s;font-family:'DM Sans',sans-serif}
+.nav-btn span{font-size:10px;font-weight:500}
+.nav-btn.active{background:var(--blue-lt);color:var(--blue-mid)}
+.nav-btn.active span{font-weight:700;color:var(--blue-mid)}
+.nav-btn.active svg{stroke:var(--blue-mid) !important}
+/* TOP BAR */
+.top-bar{background:white;padding:14px 16px 12px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);flex-shrink:0}
+.back-btn{width:36px;height:36px;background:var(--bg);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);flex-shrink:0}
+.top-bar-title{font-size:17px;font-weight:700;font-family:'Sora',sans-serif;flex:1;text-align:center}
+/* STEPS */
+.steps{display:flex;align-items:center;justify-content:center;padding:14px 24px 12px;background:white;border-bottom:1px solid var(--border);gap:0;flex-shrink:0}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:'Sora',sans-serif;background:var(--border);color:var(--muted);transition:all .3s;flex-shrink:0}
+.step-dot.active{background:var(--blue-mid);color:white}
+.step-dot.done{background:var(--green-mid);color:white}
+.step-line{flex:1;height:2px;background:var(--border);transition:background .3s;max-width:60px;min-width:20px}
+.step-line.done{background:var(--green-mid)}
+.booking-body{flex:1;overflow-y:auto;padding:18px 16px 100px;-webkit-overflow-scrolling:touch}
+.booking-body::-webkit-scrollbar{display:none}
+/* BOOKING STEPS */
+.loc-card{background:white;border-radius:var(--r);padding:4px 16px;box-shadow:var(--sh);margin-bottom:14px}
+.loc-row{display:flex;align-items:center;gap:12px;padding:14px 0;cursor:pointer}
+.loc-row+.loc-row{border-top:1px solid var(--border)}
+.loc-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.loc-dot.pickup{background:var(--blue-mid)}
+.loc-dot.drop{background:var(--red)}
+.loc-text{flex:1}
+.loc-label{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:2px}
+.loc-value{font-size:14px;font-weight:500}
+.loc-action{font-size:12px;font-weight:600;color:var(--blue-mid)}
+.gps-btn{width:100%;padding:13px;background:var(--blue-lt);border:1.5px dashed var(--blue-mid);border-radius:var(--rs);color:var(--blue-mid);font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;margin-bottom:14px}
+.map-preview{background:linear-gradient(135deg,#dbeafe,#dcfce7);border-radius:var(--r);height:150px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:16px;border:1px solid var(--border)}
+.map-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(13,79,138,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(13,79,138,.07) 1px,transparent 1px);background-size:22px 22px}
+.map-pin-preview{font-size:32px;position:relative;z-index:1;filter:drop-shadow(0 4px 6px rgba(0,0,0,.15))}
+.vehicle-picker{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.vehicle-card{background:white;border-radius:var(--rs);padding:16px 12px;cursor:pointer;border:2px solid var(--border);text-align:center;transition:all .2s}
+.vehicle-card.selected{border-color:var(--blue-mid);background:var(--blue-lt)}
+.vehicle-card .v-emoji{font-size:28px;margin-bottom:6px}
+.vehicle-card .v-name{font-size:13px;font-weight:700}
+.vehicle-card .v-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.vehicle-card .v-price{font-size:12px;font-weight:700;color:var(--blue-mid);margin-top:6px}
+.fare-card{background:white;border-radius:var(--r);padding:18px;box-shadow:var(--sh);margin-bottom:14px}
+.fare-card h3{font-size:15px;font-weight:700;margin-bottom:14px;font-family:'Sora',sans-serif}
+.fare-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.fare-row:last-child{border-bottom:none}
+.fare-row.total{background:var(--blue-lt);margin:8px -18px -18px;padding:14px 18px;border-radius:0 0 var(--r) var(--r)}
+.fare-row .fl{font-size:13px;color:var(--muted)}
+.fare-row .fv{font-size:14px;font-weight:600}
+.fare-row.total .fl{font-weight:700;color:var(--blue)}
+.fare-row.total .fv{font-size:22px;font-weight:800;color:var(--blue);font-family:'Sora',sans-serif}
+.eta-bar{background:white;border-radius:var(--r);box-shadow:var(--sh);display:flex;margin-bottom:14px}
+.eta-item{flex:1;text-align:center;padding:14px 8px}
+.eta-item+.eta-item{border-left:1px solid var(--border)}
+.eta-big{font-size:24px;font-weight:800;color:var(--blue-mid);font-family:'Sora',sans-serif;display:block}
+.eta-sm{font-size:11px;color:var(--muted);display:block;margin-top:2px}
+.fixed-note{background:var(--green-lt);border-radius:var(--rs);padding:11px 14px;font-size:12px;color:var(--green);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.driver-card{background:white;border-radius:var(--r);padding:18px;box-shadow:var(--sh);margin-bottom:14px}
+.driver-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.driver-av-wrap{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--blue-mid),var(--green-mid));display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:white;font-family:'Sora',sans-serif;flex-shrink:0}
+.driver-name{font-size:16px;font-weight:700;font-family:'Sora',sans-serif}
+.driver-coop{font-size:11px;color:var(--muted);margin-top:2px}
+.stars-row{display:flex;align-items:center;gap:2px;margin-top:4px}
+.stars-row .star-s{color:var(--amber);font-size:13px}
+.stars-count{font-size:12px;color:var(--muted);margin-left:4px}
+.driver-details{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.detail-pill{background:var(--bg);border-radius:10px;padding:10px 12px}
+.detail-pill .dp-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.detail-pill .dp-val{font-size:13px;font-weight:600;margin-top:2px}
+.verified-tag{display:inline-flex;align-items:center;gap:4px;background:var(--green-lt);color:var(--green);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:600;margin-top:12px}
+.share-trip-btn{width:100%;padding:12px;background:var(--green-lt);border:none;border-radius:var(--rs);font-size:13px;font-weight:600;color:var(--green);cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:10px}
+/* PAYMENT */
+.fare-total-pill{background:var(--blue-lt);border-radius:var(--r);padding:14px 18px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+.ftl{font-size:12px;color:var(--muted)}
+.fta{font-size:28px;font-weight:800;color:var(--blue);font-family:'Sora',sans-serif}
+.locked-pill{background:var(--green-lt);color:var(--green);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:600}
+.pm-list{margin-bottom:16px}
+.pm-item{background:white;border-radius:var(--rs);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;border:2px solid var(--border);transition:all .2s}
+.pm-item.selected{border-color:var(--blue-mid);background:var(--blue-lt)}
+.pm-logo{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.pm-logo.mtn{background:#FFC300;color:#1A202C}
+.pm-logo.airtel{background:#EF2B2D;color:white}
+.pm-logo.cash{background:var(--green-lt);font-size:20px}
+.pm-info{flex:1}
+.pm-name{font-size:14px;font-weight:600}
+.pm-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.pm-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);transition:all .2s;flex-shrink:0}
+.pm-radio.sel{border-color:var(--blue-mid);background:var(--blue-mid);box-shadow:inset 0 0 0 3px white}
+.info-note{background:var(--bg);border-radius:var(--rs);padding:11px 14px;font-size:12px;color:var(--muted);margin-bottom:16px}
+/* TRACKING */
+.track-map{height:290px;flex-shrink:0;background:linear-gradient(145deg,#cce4f7,#ccf0dc);position:relative;overflow:hidden}
+.map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(13,79,138,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(13,79,138,.1) 1px,transparent 1px);background-size:26px 26px}
+.map-road-h{position:absolute;left:0;right:0;top:50%;height:12px;background:rgba(255,255,255,.7);transform:translateY(-50%)}
+.map-road-v{position:absolute;top:0;bottom:0;left:40%;width:12px;background:rgba(255,255,255,.7)}
+.map-route{position:absolute;left:40%;top:20%;width:2px;height:55%;background:var(--blue-mid);opacity:.5;z-index:1}
+.track-end{position:absolute;top:16%;left:calc(40% - 14px);font-size:26px;z-index:2;filter:drop-shadow(0 3px 6px rgba(0,0,0,.2))}
+.track-moto{position:absolute;font-size:26px;z-index:3;left:calc(40% - 13px);animation:motoRide 3.5s ease-in-out infinite;filter:drop-shadow(0 3px 6px rgba(0,0,0,.2))}
+.track-start{position:absolute;bottom:20%;left:calc(40% - 14px);font-size:26px;z-index:2;filter:drop-shadow(0 3px 6px rgba(0,0,0,.2))}
+@keyframes motoRide{0%,100%{bottom:28%}50%{bottom:50%}}
+.map-back{position:absolute;top:12px;left:12px;background:white;border:none;border-radius:10px;padding:8px 12px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12);z-index:5}
+.track-panel{flex:1;overflow-y:auto;padding:16px 16px 100px}
+.track-panel::-webkit-scrollbar{display:none}
+.live-status{display:flex;align-items:center;gap:10px;background:var(--green-lt);border-radius:30px;padding:9px 16px;margin-bottom:14px;width:fit-content}
+.live-status span{font-size:13px;font-weight:600;color:var(--green)}
+.pulse{width:8px;height:8px;background:var(--green-mid);border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.eta-row{display:flex;gap:10px;margin-bottom:14px}
+.eta-card{flex:1;background:white;border-radius:var(--rs);padding:12px 8px;text-align:center;box-shadow:var(--sh-sm)}
+.eta-num{font-size:22px;font-weight:800;color:var(--blue-mid);font-family:'Sora',sans-serif}
+.eta-lbl{font-size:10px;color:var(--muted);margin-top:2px}
+.driver-mini{background:white;border-radius:var(--rs);padding:14px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh-sm);margin-bottom:12px}
+.driver-av{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--blue-mid),var(--green-mid));color:white;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;flex-shrink:0}
+.driver-mi{flex:1}
+.driver-mn{font-size:14px;font-weight:700}
+.driver-ms{font-size:11px;color:var(--muted);margin-top:1px}
+.stars-sm{display:flex;align-items:center;gap:2px;margin-top:3px;font-size:12px;color:var(--amber)}
+.stars-sm span{color:var(--muted);margin-left:4px;font-size:11px}
+.call-btn{width:38px;height:38px;background:var(--green-lt);border:none;border-radius:10px;font-size:18px;cursor:pointer;flex-shrink:0}
+.track-btns{display:flex;gap:10px;margin-bottom:12px}
+/* SUCCESS */
+.success-body{display:flex;flex-direction:column;align-items:center;text-align:center;padding:36px 20px 100px}
+.success-icon{font-size:64px;margin-bottom:16px}
+.success-h{font-size:24px;font-weight:800;font-family:'Sora',sans-serif;margin-bottom:6px}
+.success-p{font-size:14px;color:var(--muted);margin-bottom:24px}
+.points-card{width:100%;background:linear-gradient(135deg,var(--blue),var(--green-mid));border-radius:var(--r);padding:18px;color:white;margin-bottom:20px}
+.pts-label{font-size:13px;opacity:.85;margin-bottom:4px}
+.pts-num{font-size:36px;font-weight:800;font-family:'Sora',sans-serif}
+.pts-sub{font-size:12px;opacity:.75;margin-top:4px}
+.rating-block{width:100%;margin-bottom:20px}
+.rating-prompt{font-size:14px;font-weight:600;margin-bottom:10px}
+.stars-lg{display:flex;justify-content:center;gap:8px}
+.star{font-size:34px;cursor:pointer;filter:grayscale(1);transition:filter .15s,transform .15s}
+.star.active{filter:none;transform:scale(1.15)}
+.receipt{width:100%;background:var(--bg);border-radius:var(--r);padding:16px;margin-bottom:20px}
+.receipt-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px}
+.receipt-row:last-child{border-bottom:none}
+.receipt-total span:first-child{font-weight:700}
+.receipt-total span:last-child{font-size:16px;font-weight:800;color:var(--blue)}
+/* PROFILE */
+.profile-header{background:linear-gradient(140deg,var(--blue),var(--blue-mid));padding:28px 20px 52px;text-align:center;flex-shrink:0}
+.profile-av{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.2);border:3px solid rgba(255,255,255,.4);color:white;font-size:22px;font-weight:800;font-family:'Sora',sans-serif;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.profile-name{font-size:20px;font-weight:700;color:white;font-family:'Sora',sans-serif}
+.profile-email{font-size:13px;color:rgba(255,255,255,.7);margin-top:3px}
+.profile-stats{background:white;border-radius:var(--r);box-shadow:var(--sh);padding:4px 16px;margin-bottom:14px}
+.ps-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--border)}
+.ps-row.last{border-bottom:none}
+.ps-lbl{font-size:13px;color:var(--muted)}
+.ps-val{font-size:14px;font-weight:700}
+.ps-val.tier{color:#b45309}
+.ps-val.blue{color:var(--blue-mid)}
+.ps-val.green{color:var(--green)}
+.menu-list{background:white;border-radius:var(--r);box-shadow:var(--sh);padding:4px 16px;margin-bottom:14px}
+.menu-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.menu-row.last{border-bottom:none}
+.menu-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.mn{font-size:14px;font-weight:600}
+.ms{font-size:11px;color:var(--muted);margin-top:1px}
+.ma{margin-left:auto;color:var(--muted);font-size:18px}
+/* PANEL */
+.panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:none;align-items:flex-end;justify-content:center}
+.panel-overlay.open{display:flex}
+.panel{background:white;border-radius:24px 24px 0 0;padding:20px 20px 36px;width:100%;max-width:430px;max-height:80vh;overflow-y:auto;animation:slideUp .3s ease}
+.panel::-webkit-scrollbar{display:none}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.panel-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 18px}
+.panel-title{font-size:18px;font-weight:700;font-family:'Sora',sans-serif;margin-bottom:14px}
+.panel-input-wrap{display:flex;align-items:center;gap:10px;border:1.5px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:16px;background:var(--bg)}
+.panel-input{border:none;background:transparent;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;flex:1;color:var(--text)}
+.suggestion{display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--rs);cursor:pointer;margin-bottom:2px}
+.suggestion:active{background:var(--bg)}
+.sugg-icon{width:38px;height:38px;background:var(--blue-lt);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.sn{font-size:13px;font-weight:600}
+.ss{font-size:11px;color:var(--muted);margin-top:1px}
+/* TOAST */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1A202C;color:white;padding:11px 22px;border-radius:30px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;white-space:nowrap;max-width:90vw;font-family:'DM Sans',sans-serif}
+.toast.show{opacity:1}
+.fade-in{animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
 </head>
 <body>
 <div id="app">
-
-  <!-- STATUS BAR -->
-  <div class="status-bar">
-    <span id="status-time">9:41</span>
-    <div class="status-icons">
-      <svg width="17" height="12" viewBox="0 0 17 12"><rect x="0" y="5" width="2.5" height="7" rx="0.8" fill="white" opacity="0.5"/><rect x="4" y="3" width="2.5" height="9" rx="0.8" fill="white" opacity="0.7"/><rect x="8" y="1" width="2.5" height="11" rx="0.8" fill="white"/><rect x="12.5" y="0" width="2.5" height="12" rx="0.8" fill="white"/></svg>
-      <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 3C10.5 3 12.7 4.1 14.2 5.8L15.6 4.3C13.7 2.2 11 1 8 1C5 1 2.3 2.2 0.4 4.3L1.8 5.8C3.3 4.1 5.5 3 8 3Z" fill="white" opacity="0.45"/><path d="M8 6C9.7 6 11.2 6.7 12.3 7.8L13.7 6.4C12.2 4.9 10.2 4 8 4C5.8 4 3.8 4.9 2.3 6.4L3.7 7.8C4.8 6.7 6.3 6 8 6Z" fill="white" opacity="0.7"/><circle cx="8" cy="11" r="1.5" fill="white"/></svg>
-      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="2.5" stroke="white" stroke-opacity="0.4"/><rect x="2" y="2" width="17" height="8" rx="1.5" fill="white"/><path d="M24 4V8C24.9 7.6 25.5 6.9 25.5 6C25.5 5.1 24.9 4.4 24 4Z" fill="white" fill-opacity="0.4"/></svg>
-    </div>
-  </div>
-
+  <div class="status-bar"><span id="status-time">9:41</span><div class="status-icons"><svg width="17" height="12" viewBox="0 0 17 12"><rect x="0" y="5" width="2.5" height="7" rx=".8" fill="white" opacity=".5"/><rect x="4" y="3" width="2.5" height="9" rx=".8" fill="white" opacity=".7"/><rect x="8" y="1" width="2.5" height="11" rx=".8" fill="white"/><rect x="12.5" y="0" width="2.5" height="12" rx=".8" fill="white"/></svg><svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 3C10.5 3 12.7 4.1 14.2 5.8L15.6 4.3C13.7 2.2 11 1 8 1C5 1 2.3 2.2 0.4 4.3L1.8 5.8C3.3 4.1 5.5 3 8 3Z" fill="white" opacity=".45"/><path d="M8 6C9.7 6 11.2 6.7 12.3 7.8L13.7 6.4C12.2 4.9 10.2 4 8 4C5.8 4 3.8 4.9 2.3 6.4L3.7 7.8C4.8 6.7 6.3 6 8 6Z" fill="white" opacity=".7"/><circle cx="8" cy="11" r="1.5" fill="white"/></svg><svg width="26" height="12" viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="2.5" stroke="white" stroke-opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="1.5" fill="white"/><path d="M24 4V8C24.9 7.6 25.5 6.9 25.5 6C25.5 5.1 24.9 4.4 24 4Z" fill="white" fill-opacity=".4"/></svg></div></div>
   <!-- SPLASH -->
-  <div class="screen active" id="screen-splash">
-    <div class="splash-bg"></div>
-    <div class="splash-content">
-      <div class="splash-logo">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-          <path d="M18 8C18 8 9 18 9 28C9 36 13.5 43 20 47" stroke="#2EAB5F" stroke-width="3.5" stroke-linecap="round"/>
-          <path d="M38 8C38 8 47 18 47 28C47 36 42.5 43 36 47" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-opacity="0.65"/>
-          <circle cx="18" cy="28" r="7.5" fill="#2EAB5F"/>
-          <circle cx="38" cy="28" r="7.5" fill="white" fill-opacity="0.85"/>
-          <path d="M18 35.5L28 48L38 35.5" stroke="#2EAB5F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="28" cy="48" r="3.5" fill="white"/>
-        </svg>
-      </div>
-      <h1 class="splash-brand">konekt</h1>
-      <p class="splash-by">by <span>SANKOFA</span></p>
-      <p class="splash-tagline">Clarity Before You Ride</p>
-      <div class="lang-switch">
-        <button class="lang-btn active" onclick="setLang('en',this)">English</button>
-        <button class="lang-btn" onclick="setLang('rw',this)">Kinyarwanda</button>
-      </div>
-      <div class="splash-stats">
-        <div class="stat-card"><strong>Fixed</strong><span>Fares Always</span></div>
-        <div class="stat-card"><strong>500+</strong><span>Drivers</span></div>
-        <div class="stat-card"><strong>24/7</strong><span>Available</span></div>
-      </div>
-      <button class="btn-primary btn-full" onclick="goto('screen-home')" id="btn-start">Get Started</button>
-      <button class="btn-ghost btn-full" onclick="goto('screen-home')" id="btn-login">I Have an Account</button>
-    </div>
-  </div>
-
+  <div class="screen active" id="screen-splash"><div class="splash-bg"></div><div class="splash-content"><div class="splash-logo"><svg width="56" height="56" viewBox="0 0 56 56" fill="none"><path d="M18 8C18 8 9 18 9 28C9 36 13.5 43 20 47" stroke="#2EAB5F" stroke-width="3.5" stroke-linecap="round"/><path d="M38 8C38 8 47 18 47 28C47 36 42.5 43 36 47" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-opacity=".65"/><circle cx="18" cy="28" r="7.5" fill="#2EAB5F"/><circle cx="38" cy="28" r="7.5" fill="white" fill-opacity=".85"/><path d="M18 35.5L28 48L38 35.5" stroke="#2EAB5F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28" cy="48" r="3.5" fill="white"/></svg></div><h1 class="splash-brand">konekt</h1><p class="splash-by">by <span>SANKOFA</span></p><p class="splash-tagline">Clarity Before You Ride</p><div class="lang-switch"><button class="lang-btn active" onclick="setLang('en',this)">English</button><button class="lang-btn" onclick="setLang('rw',this)">Kinyarwanda</button></div><div class="splash-stats"><div class="stat-card"><strong>Fixed</strong><span>Fares Always</span></div><div class="stat-card"><strong>500+</strong><span>Drivers</span></div><div class="stat-card"><strong>24/7</strong><span>Available</span></div></div><button class="btn-primary btn-full" onclick="goto('screen-home')" id="btn-start">Get Started</button><button class="btn-ghost btn-full mt8" onclick="goto('screen-home')" id="btn-login">I Have an Account</button></div></div>
   <!-- HOME -->
-  <div class="screen" id="screen-home">
-    <div class="home-header">
-      <div class="home-header-row">
-        <div>
-          <h2 class="greeting" id="greeting">Mwaramutse, Keza 👋</h2>
-          <p class="greeting-sub" id="greeting-sub">Where are you headed today?</p>
-        </div>
-        <button class="avatar-btn" onclick="goto('screen-profile')">KU</button>
-      </div>
-      <div class="search-bar" onclick="openPanel('panel-destination')">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#94a3b8" stroke-width="1.5"/><path d="M11 11L14 14" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <span id="search-placeholder">Where do you want to go?</span>
-      </div>
-    </div>
-    <div class="home-body">
-      <div class="quick-grid">
-        <div class="quick-card" onclick="quickBook('ALU Innovation City','1.1 km')"><div class="quick-icon" style="background:#eff6ff">🏫</div><p class="quick-name">ALU Campus</p><p class="quick-loc">Innovation City</p></div>
-        <div class="quick-card" onclick="quickBook('Kimironko Market','4.2 km')"><div class="quick-icon" style="background:#fff7ed">🏪</div><p class="quick-name">Kimironko</p><p class="quick-loc">Market</p></div>
-        <div class="quick-card" onclick="quickBook('Kacyiru Office','5.8 km')"><div class="quick-icon" style="background:#f0fdf4">🏛️</div><p class="quick-name">Kacyiru</p><p class="quick-loc">District</p></div>
-        <div class="quick-card" onclick="quickBook('CHUK Hospital','7.3 km')"><div class="quick-icon" style="background:#fff1f2">🏥</div><p class="quick-name">CHUK</p><p class="quick-loc">Hospital</p></div>
-      </div>
-
-      <p class="section-label">Your Riders' Circle</p>
-      <div class="krc-card" onclick="showToast('KRC: 160 pts to Gold Guardian!')">
-        <div class="krc-header">
-          <div><span class="krc-badge">🥈 Silver Champion</span><div class="krc-pts">340</div><div class="krc-pts-lbl">Clarity Points</div></div>
-          <div class="krc-next"><p class="krc-next-lbl">Next tier</p><p class="krc-next-val">500 pts</p><p class="krc-next-name">Gold Guardian</p></div>
-        </div>
-        <div class="krc-bar"><div class="krc-fill" style="width:68%"></div></div>
-        <div class="krc-foot"><span>160 pts to Gold</span><span>23 rides</span></div>
-      </div>
-
-      <p class="section-label">Recent Rides</p>
-      <div class="ride-item" onclick="goto('screen-tracking')">
-        <div class="ride-icon-wrap moto">🏍️</div>
-        <div class="ride-info"><p class="ride-route">Innovation City → Kimironko</p><p class="ride-meta">Today · 08:12 · Jean-Pierre</p></div>
-        <span class="ride-price">1,130 RWF</span>
-      </div>
-      <div class="ride-item">
-        <div class="ride-icon-wrap moto">🏍️</div>
-        <div class="ride-info"><p class="ride-route">Kacyiru → Remera</p><p class="ride-meta">Yesterday · 17:45 · Alexis</p></div>
-        <span class="ride-price">965 RWF</span>
-      </div>
-      <div class="ride-item" style="margin-bottom:100px">
-        <div class="ride-icon-wrap bus">🚌</div>
-        <div class="ride-info"><p class="ride-route">Nyabugogo → Gikondo</p><p class="ride-meta">Mon · 07:30 · Bus Line 12</p></div>
-        <span class="ride-price">854 RWF</span>
-      </div>
-    </div>
-    <nav class="bottom-nav">
-      <button class="nav-btn active" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 8L10 2L17 8V17C17 17.6 16.6 18 16 18H13V13H7V18H4C3.4 18 3 17.6 3 17V8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Home</span></button>
-      <button class="nav-btn" onclick="openPanel('panel-destination')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C7.2 2 5 4.2 5 7C5 11 10 17 10 17C10 17 15 11 15 7C15 4.2 12.8 2 10 2Z" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg><span>Ride</span></button>
-      <button class="nav-btn" onclick="showToast('History coming soon')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8H13M7 11H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>History</span></button>
-      <button class="nav-btn" onclick="goto('screen-profile')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 17C3 14.2 6.1 12 10 12C13.9 12 17 14.2 17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Profile</span></button>
-    </nav>
-  </div>
-
+  <div class="screen" id="screen-home"><div class="home-header"><div class="home-header-row"><div><h2 class="greeting" id="greeting">Mwaramutse, Keza 👋</h2><p class="greeting-sub" id="greeting-sub">Where are you headed today?</p></div><button class="avatar-btn" onclick="goto('screen-profile')">KU</button></div><div class="search-bar" onclick="openPanel('panel-destination')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#94a3b8" stroke-width="1.5"/><path d="M11 11L14 14" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/></svg><span id="search-placeholder">Where do you want to go?</span></div></div><div class="home-body"><div class="quick-grid"><div class="quick-card" onclick="quickBook('ALU Innovation City','1.1 km')"><div class="quick-icon" style="background:#eff6ff">🏫</div><p class="quick-name">ALU Campus</p><p class="quick-loc">Innovation City</p></div><div class="quick-card" onclick="quickBook('Kimironko Market','4.2 km')"><div class="quick-icon" style="background:#fff7ed">🏪</div><p class="quick-name">Kimironko</p><p class="quick-loc">Market</p></div><div class="quick-card" onclick="quickBook('Kacyiru Office','5.8 km')"><div class="quick-icon" style="background:#f0fdf4">🏛️</div><p class="quick-name">Kacyiru</p><p class="quick-loc">District</p></div><div class="quick-card" onclick="quickBook('CHUK Hospital','7.3 km')"><div class="quick-icon" style="background:#fff1f2">🏥</div><p class="quick-name">CHUK</p><p class="quick-loc">Hospital</p></div></div><p class="section-label">Your Riders' Circle</p><div class="krc-card" onclick="showToast('KRC: 160 pts to Gold Guardian!')"><div class="krc-header"><div><span class="krc-badge">🥈 Silver Champion</span><div class="krc-pts">340</div><div class="krc-pts-lbl">Clarity Points</div></div><div class="krc-next"><p class="krc-next-lbl">Next tier</p><p class="krc-next-val">500 pts</p><p class="krc-next-name">Gold Guardian</p></div></div><div class="krc-bar"><div class="krc-fill" style="width:68%"></div></div><div class="krc-foot"><span>160 pts to Gold</span><span>23 rides</span></div></div><p class="section-label">Recent Rides</p><div class="ride-item" onclick="goto('screen-tracking')"><div class="ride-icon-wrap moto">🏍️</div><div class="ride-info"><p class="ride-route">Innovation City → Kimironko</p><p class="ride-meta">Today · 08:12 · Jean-Pierre</p></div><span class="ride-price">1,130 RWF</span></div><div class="ride-item"><div class="ride-icon-wrap moto">🏍️</div><div class="ride-info"><p class="ride-route">Kacyiru → Remera</p><p class="ride-meta">Yesterday · 17:45 · Alexis</p></div><span class="ride-price">965 RWF</span></div><div class="ride-item" style="margin-bottom:100px"><div class="ride-icon-wrap bus">🚌</div><div class="ride-info"><p class="ride-route">Nyabugogo → Gikondo</p><p class="ride-meta">Mon · 07:30 · Bus Line 12</p></div><span class="ride-price">854 RWF</span></div></div><nav class="bottom-nav"><button class="nav-btn active" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 8L10 2L17 8V17C17 17.6 16.6 18 16 18H13V13H7V18H4C3.4 18 3 17.6 3 17V8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Home</span></button><button class="nav-btn" onclick="openPanel('panel-destination')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C7.2 2 5 4.2 5 7C5 11 10 17 10 17C10 17 15 11 15 7C15 4.2 12.8 2 10 2Z" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg><span>Ride</span></button><button class="nav-btn" onclick="showToast('History coming soon')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8H13M7 11H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>History</span></button><button class="nav-btn" onclick="goto('screen-profile')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 17C3 14.2 6.1 12 10 12C13.9 12 17 14.2 17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Profile</span></button></nav></div>
   <!-- BOOKING -->
-  <div class="screen" id="screen-booking">
-    <div class="top-bar">
-      <button class="back-btn" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 15L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <h2 class="top-bar-title" id="booking-title">Choose Route</h2>
-      <div style="width:36px"></div>
-    </div>
-    <div class="steps">
-      <div class="step-dot active" id="sd1">1</div>
-      <div class="step-line" id="sl1"></div>
-      <div class="step-dot" id="sd2">2</div>
-      <div class="step-line" id="sl2"></div>
-      <div class="step-dot" id="sd3">3</div>
-    </div>
-    <div class="booking-body" id="booking-body"></div>
-    <nav class="bottom-nav">
-      <button class="nav-btn" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 8L10 2L17 8V17C17 17.6 16.6 18 16 18H13V13H7V18H4C3.4 18 3 17.6 3 17V8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Home</span></button>
-      <button class="nav-btn active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C7.2 2 5 4.2 5 7C5 11 10 17 10 17C10 17 15 11 15 7C15 4.2 12.8 2 10 2Z" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg><span>Ride</span></button>
-      <button class="nav-btn" onclick="showToast('History coming soon')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8H13M7 11H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>History</span></button>
-      <button class="nav-btn" onclick="goto('screen-profile')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 17C3 14.2 6.1 12 10 12C13.9 12 17 14.2 17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Profile</span></button>
-    </nav>
-  </div>
-
+  <div class="screen" id="screen-booking"><div class="top-bar"><button class="back-btn" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 15L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><h2 class="top-bar-title" id="booking-title">Choose Route</h2><div style="width:36px"></div></div><div class="steps"><div class="step-dot active" id="sd1">1</div><div class="step-line" id="sl1"></div><div class="step-dot" id="sd2">2</div><div class="step-line" id="sl2"></div><div class="step-dot" id="sd3">3</div></div><div class="booking-body" id="booking-body"></div><nav class="bottom-nav"><button class="nav-btn" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 8L10 2L17 8V17C17 17.6 16.6 18 16 18H13V13H7V18H4C3.4 18 3 17.6 3 17V8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Home</span></button><button class="nav-btn active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C7.2 2 5 4.2 5 7C5 11 10 17 10 17C10 17 15 11 15 7C15 4.2 12.8 2 10 2Z" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg><span>Ride</span></button><button class="nav-btn" onclick="showToast('History coming soon')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8H13M7 11H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>History</span></button><button class="nav-btn" onclick="goto('screen-profile')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 17C3 14.2 6.1 12 10 12C13.9 12 17 14.2 17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Profile</span></button></nav></div>
   <!-- PAYMENT -->
-  <div class="screen" id="screen-payment">
-    <div class="top-bar">
-      <button class="back-btn" onclick="gotoStep(3)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 15L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <h2 class="top-bar-title">Choose Payment</h2>
-      <div style="width:36px"></div>
-    </div>
-    <div class="screen-body">
-      <div class="fare-total-pill">
-        <div><p class="ftl">Total to Pay</p><p class="fta" id="payment-total">1,130 RWF</p></div>
-        <span class="locked-pill">🔒 Fixed</span>
-      </div>
-      <div class="pm-list">
-        <div class="pm-item selected" id="pm-mtn" onclick="selectPayment('mtn')"><div class="pm-logo mtn">MTN</div><div class="pm-info"><p class="pm-name">MTN Mobile Money</p><p class="pm-sub">Balance: 12,500 RWF</p></div><div class="pm-radio sel" id="radio-mtn"></div></div>
-        <div class="pm-item" id="pm-airtel" onclick="selectPayment('airtel')"><div class="pm-logo airtel">AIR</div><div class="pm-info"><p class="pm-name">Airtel Money</p><p class="pm-sub">+250 78X XXX XXX</p></div><div class="pm-radio" id="radio-airtel"></div></div>
-        <div class="pm-item" id="pm-cash" onclick="selectPayment('cash')"><div class="pm-logo cash">💵</div><div class="pm-info"><p class="pm-name">Cash</p><p class="pm-sub">Pay driver directly</p></div><div class="pm-radio" id="radio-cash"></div></div>
-      </div>
-      <div class="info-note">💡 Payment is deducted only after your ride completes successfully.</div>
-      <button class="btn-primary btn-full" onclick="confirmPayment()">✓ &nbsp;Confirm &amp; Start Ride</button>
-    </div>
-  </div>
-
+  <div class="screen" id="screen-payment"><div class="top-bar"><button class="back-btn" onclick="gotoStep(3)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 15L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><h2 class="top-bar-title">Choose Payment</h2><div style="width:36px"></div></div><div class="screen-body"><div class="fare-total-pill"><div><p class="ftl">Total to Pay</p><p class="fta" id="payment-total">1,130 RWF</p></div><span class="locked-pill">🔒 Fixed</span></div><div class="pm-list"><div class="pm-item selected" id="pm-mtn" onclick="selectPayment('mtn')"><div class="pm-logo mtn">MTN</div><div class="pm-info"><p class="pm-name">MTN Mobile Money</p><p class="pm-sub">Balance: 12,500 RWF</p></div><div class="pm-radio sel" id="radio-mtn"></div></div><div class="pm-item" id="pm-airtel" onclick="selectPayment('airtel')"><div class="pm-logo airtel">AIR</div><div class="pm-info"><p class="pm-name">Airtel Money</p><p class="pm-sub">+250 78X XXX XXX</p></div><div class="pm-radio" id="radio-airtel"></div></div><div class="pm-item" id="pm-cash" onclick="selectPayment('cash')"><div class="pm-logo cash">💵</div><div class="pm-info"><p class="pm-name">Cash</p><p class="pm-sub">Pay driver directly</p></div><div class="pm-radio" id="radio-cash"></div></div></div><div class="info-note">💡 Payment is deducted only after your ride completes successfully.</div><button class="btn-primary btn-full" onclick="confirmPayment()">✓ &nbsp;Confirm &amp; Start Ride</button></div></div>
   <!-- TRACKING -->
-  <div class="screen" id="screen-tracking">
-    <div class="track-map">
-      <div class="map-grid"></div>
-      <div class="map-road-h"></div>
-      <div class="map-road-v"></div>
-      <div class="map-route"></div>
-      <div class="track-end">🏁</div>
-      <div class="track-moto" id="track-moto">🏍️</div>
-      <div class="track-start">📍</div>
-      <button class="map-back" onclick="goto('screen-home')">← Back</button>
-    </div>
-    <div class="track-panel">
-      <div class="live-status"><div class="pulse"></div><span id="track-status">Jean-Pierre is 3 min away</span></div>
-      <div class="eta-row">
-        <div class="eta-card"><p class="eta-num" id="eta-num">3</p><p class="eta-lbl">min pickup</p></div>
-        <div class="eta-card"><p class="eta-num">12</p><p class="eta-lbl">min journey</p></div>
-        <div class="eta-card"><p class="eta-num">4.2</p><p class="eta-lbl">km total</p></div>
-      </div>
-      <div class="driver-mini">
-        <div class="driver-av">JP</div>
-        <div class="driver-mi">
-          <p class="driver-mn">Jean-Pierre Habimana</p>
-          <p class="driver-ms">RAC 487 B · Green Honda CG 125</p>
-          <div class="stars-sm">★★★★★ <span>4.9</span></div>
-        </div>
-        <button class="call-btn" onclick="showToast('Calling driver...')">📞</button>
-      </div>
-      <div class="track-btns">
-        <button class="btn-danger" onclick="showToast('Emergency contacts notified!')">🚨 Emergency</button>
-        <button class="btn-green" onclick="showToast('Trip shared on WhatsApp!')">📤 Share Trip</button>
-      </div>
-      <button class="btn-primary btn-full" onclick="goto('screen-success')">✓ &nbsp;I Arrived — Complete Trip</button>
-    </div>
-  </div>
-
+  <div class="screen" id="screen-tracking"><div class="track-map"><div class="map-grid"></div><div class="map-road-h"></div><div class="map-road-v"></div><div class="map-route"></div><div class="track-end">🏁</div><div class="track-moto" id="track-moto">🏍️</div><div class="track-start">📍</div><button class="map-back" onclick="goto('screen-home')">← Back</button></div><div class="track-panel"><div class="live-status"><div class="pulse"></div><span id="track-status">Jean-Pierre is 3 min away</span></div><div class="eta-row"><div class="eta-card"><p class="eta-num" id="eta-num">3</p><p class="eta-lbl">min pickup</p></div><div class="eta-card"><p class="eta-num">12</p><p class="eta-lbl">min journey</p></div><div class="eta-card"><p class="eta-num">4.2</p><p class="eta-lbl">km total</p></div></div><div class="driver-mini"><div class="driver-av">JP</div><div class="driver-mi"><p class="driver-mn">Jean-Pierre Habimana</p><p class="driver-ms">RAC 487 B · Green Honda CG 125</p><div class="stars-sm">★★★★★ <span>4.9</span></div></div><button class="call-btn" onclick="showToast('Calling driver...')">📞</button></div><div class="track-btns"><button class="btn-danger" onclick="showToast('Emergency contacts notified!')">🚨 Emergency</button><button class="btn-green" onclick="showToast('Trip shared on WhatsApp!')">📤 Share Trip</button></div><button class="btn-primary btn-full" onclick="goto('screen-success')">✓ &nbsp;I Arrived — Complete Trip</button></div></div>
   <!-- SUCCESS -->
-  <div class="screen" id="screen-success">
-    <div class="screen-body success-body">
-      <div class="success-icon">✅</div>
-      <h2 class="success-h">Ride Complete!</h2>
-      <p class="success-p">You arrived safely at <strong id="success-dest">Kimironko Market</strong>.</p>
-      <div class="points-card">
-        <p class="pts-label">🎯 Clarity Points Earned</p>
-        <p class="pts-num">+15 pts</p>
-        <p class="pts-sub">Total: 355 pts · 145 pts to Gold Guardian</p>
-      </div>
-      <div class="rating-block">
-        <p class="rating-prompt">How was Jean-Pierre?</p>
-        <div class="stars-lg" id="star-rating">
-          <span class="star" onclick="rateStar(1)">⭐</span>
-          <span class="star" onclick="rateStar(2)">⭐</span>
-          <span class="star" onclick="rateStar(3)">⭐</span>
-          <span class="star" onclick="rateStar(4)">⭐</span>
-          <span class="star" onclick="rateStar(5)">⭐</span>
-        </div>
-      </div>
-      <div class="receipt">
-        <div class="receipt-row"><span>Distance</span><span>4.2 km</span></div>
-        <div class="receipt-row"><span>Duration</span><span>11 min</span></div>
-        <div class="receipt-row"><span>Vehicle</span><span id="receipt-vehicle">Moto</span></div>
-        <div class="receipt-row receipt-total"><span>Paid (MTN MoMo)</span><span id="receipt-total">1,130 RWF</span></div>
-      </div>
-      <button class="btn-primary btn-full" onclick="goto('screen-home')">🏠 &nbsp;Back to Home</button>
-      <button class="btn-outline btn-full" onclick="goto('screen-booking');gotoStep(1)">🏍️ &nbsp;Book Another Ride</button>
-    </div>
-  </div>
-
+  <div class="screen" id="screen-success"><div class="screen-body success-body"><div class="success-icon">✅</div><h2 class="success-h">Ride Complete!</h2><p class="success-p">You arrived safely at <strong id="success-dest">Kimironko Market</strong>.</p><div class="points-card"><p class="pts-label">🎯 Clarity Points Earned</p><p class="pts-num">+15 pts</p><p class="pts-sub">Total: 355 pts · 145 pts to Gold Guardian</p></div><div class="rating-block"><p class="rating-prompt">How was Jean-Pierre?</p><div class="stars-lg" id="star-rating"><span class="star" onclick="rateStar(1)">⭐</span><span class="star" onclick="rateStar(2)">⭐</span><span class="star" onclick="rateStar(3)">⭐</span><span class="star" onclick="rateStar(4)">⭐</span><span class="star" onclick="rateStar(5)">⭐</span></div></div><div class="receipt"><div class="receipt-row"><span>Distance</span><span>4.2 km</span></div><div class="receipt-row"><span>Duration</span><span>11 min</span></div><div class="receipt-row"><span>Vehicle</span><span id="receipt-vehicle">Moto</span></div><div class="receipt-row receipt-total"><span>Paid (MTN MoMo)</span><span id="receipt-total">1,130 RWF</span></div></div><button class="btn-primary btn-full" onclick="goto('screen-home')">🏠 &nbsp;Back to Home</button><button class="btn-outline btn-full mt8" onclick="goto('screen-booking');gotoStep(1)">🏍️ &nbsp;Book Another Ride</button></div></div>
   <!-- PROFILE -->
-  <div class="screen" id="screen-profile">
-    <div class="profile-header">
-      <div class="profile-av">KU</div>
-      <h2 class="profile-name">Keza Uwimana</h2>
-      <p class="profile-email">keza.uwimana@alustudent.com</p>
-    </div>
-    <div class="screen-body" style="margin-top:-28px">
-      <div class="profile-stats">
-        <div class="ps-row"><span class="ps-lbl">KRC Tier</span><span class="ps-val tier">🥈 Silver Champion</span></div>
-        <div class="ps-row"><span class="ps-lbl">Clarity Points</span><span class="ps-val blue">340 pts</span></div>
-        <div class="ps-row"><span class="ps-lbl">Total Rides</span><span class="ps-val">23 rides</span></div>
-        <div class="ps-row"><span class="ps-lbl">Saved vs Haggling</span><span class="ps-val green">≈ 8,400 RWF</span></div>
-        <div class="ps-row last"><span class="ps-lbl">Member Since</span><span class="ps-val">January 2026</span></div>
-      </div>
-      <div class="menu-list">
-        <div class="menu-row" onclick="showToast('Payment methods')"><div class="menu-ico" style="background:#eff6ff">💳</div><div><p class="mn">Payment Methods</p><p class="ms">MTN MoMo · Airtel Money</p></div><span class="ma">›</span></div>
-        <div class="menu-row" onclick="showToast('Safety contacts saved')"><div class="menu-ico" style="background:#f0fdf4">🛡️</div><div><p class="mn">Safety Contacts</p><p class="ms">2 contacts saved</p></div><span class="ma">›</span></div>
-        <div class="menu-row" onclick="cycleLanguage()"><div class="menu-ico" style="background:#fff7ed">🌍</div><div><p class="mn">Language</p><p class="ms" id="lang-display">English</p></div><span class="ma">›</span></div>
-        <div class="menu-row" onclick="showToast('Support chat opened')"><div class="menu-ico" style="background:#fff1f2">💬</div><div><p class="mn">Help &amp; Support</p><p class="ms">Chat or call us</p></div><span class="ma">›</span></div>
-        <div class="menu-row last" onclick="goto('screen-splash')"><div class="menu-ico" style="background:#f8fafc">🚪</div><div><p class="mn">Sign Out</p><p class="ms">See you next time</p></div><span class="ma">›</span></div>
-      </div>
-    </div>
-    <nav class="bottom-nav">
-      <button class="nav-btn" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 8L10 2L17 8V17C17 17.6 16.6 18 16 18H13V13H7V18H4C3.4 18 3 17.6 3 17V8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Home</span></button>
-      <button class="nav-btn" onclick="openPanel('panel-destination')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C7.2 2 5 4.2 5 7C5 11 10 17 10 17C10 17 15 11 15 7C15 4.2 12.8 2 10 2Z" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg><span>Ride</span></button>
-      <button class="nav-btn" onclick="showToast('History coming soon')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8H13M7 11H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>History</span></button>
-      <button class="nav-btn active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 17C3 14.2 6.1 12 10 12C13.9 12 17 14.2 17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Profile</span></button>
-    </nav>
-  </div>
-
-</div><!-- /#app -->
-
-<!-- DESTINATION PANEL -->
-<div class="panel-overlay" id="panel-destination" onclick="handleOverlay(event,'panel-destination')">
-  <div class="panel">
-    <div class="panel-handle"></div>
-    <h3 class="panel-title">Where to?</h3>
-    <div class="panel-input-wrap">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#94a3b8" stroke-width="1.5"/><path d="M11 11L14 14" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <input type="text" id="dest-input" class="panel-input" placeholder="e.g. Kimironko, Kacyiru..." oninput="filterDest(this.value)" />
-    </div>
-    <div id="suggestion-list">
-      <div class="suggestion" onclick="chooseDest('Kimironko Market','4.2 km')"><div class="sugg-icon">🏪</div><div><p class="sn">Kimironko Market</p><p class="ss">Gasabo · 4.2 km</p></div></div>
-      <div class="suggestion" onclick="chooseDest('ALU Innovation City','1.1 km')"><div class="sugg-icon">🏫</div><div><p class="sn">ALU Innovation City</p><p class="ss">Kigali Innovation City · 1.1 km</p></div></div>
-      <div class="suggestion" onclick="chooseDest('Norrsken House','6.1 km')"><div class="sugg-icon">💼</div><div><p class="sn">Norrsken House</p><p class="ss">Kiyovu · 6.1 km</p></div></div>
-      <div class="suggestion" onclick="chooseDest('Kacyiru District Office','5.8 km')"><div class="sugg-icon">🏛️</div><div><p class="sn">Kacyiru District Office</p><p class="ss">Gasabo · 5.8 km</p></div></div>
-      <div class="suggestion" onclick="chooseDest('CHUK Hospital','7.3 km')"><div class="sugg-icon">🏥</div><div><p class="sn">CHUK Hospital</p><p class="ss">Nyarugenge · 7.3 km</p></div></div>
-      <div class="suggestion" onclick="chooseDest('Nyabugogo Terminal','8.0 km')"><div class="sugg-icon">🚌</div><div><p class="sn">Nyabugogo Terminal</p><p class="ss">Nyarugenge · 8.0 km</p></div></div>
-    </div>
-    <button class="btn-primary btn-full" onclick="confirmDest()">Confirm Destination</button>
-  </div>
+  <div class="screen" id="screen-profile"><div class="profile-header"><div class="profile-av">KU</div><h2 class="profile-name">Keza Uwimana</h2><p class="profile-email">keza.uwimana@alustudent.com</p></div><div class="screen-body" style="margin-top:-28px"><div class="profile-stats"><div class="ps-row"><span class="ps-lbl">KRC Tier</span><span class="ps-val tier">🥈 Silver Champion</span></div><div class="ps-row"><span class="ps-lbl">Clarity Points</span><span class="ps-val blue">340 pts</span></div><div class="ps-row"><span class="ps-lbl">Total Rides</span><span class="ps-val">23 rides</span></div><div class="ps-row"><span class="ps-lbl">Saved vs Haggling</span><span class="ps-val green">≈ 8,400 RWF</span></div><div class="ps-row last"><span class="ps-lbl">Member Since</span><span class="ps-val">January 2026</span></div></div><div class="menu-list"><div class="menu-row" onclick="showToast('Payment methods')"><div class="menu-ico" style="background:#eff6ff">💳</div><div><p class="mn">Payment Methods</p><p class="ms">MTN MoMo · Airtel Money</p></div><span class="ma">›</span></div><div class="menu-row" onclick="showToast('Safety contacts saved')"><div class="menu-ico" style="background:#f0fdf4">🛡️</div><div><p class="mn">Safety Contacts</p><p class="ms">2 contacts saved</p></div><span class="ma">›</span></div><div class="menu-row" onclick="cycleLanguage()"><div class="menu-ico" style="background:#fff7ed">🌍</div><div><p class="mn">Language</p><p class="ms" id="lang-display">English</p></div><span class="ma">›</span></div><div class="menu-row" onclick="showToast('Support chat opened')"><div class="menu-ico" style="background:#fff1f2">💬</div><div><p class="mn">Help &amp; Support</p><p class="ms">Chat or call us</p></div><span class="ma">›</span></div><div class="menu-row last" onclick="goto('screen-splash')"><div class="menu-ico" style="background:#f8fafc">🚪</div><div><p class="mn">Sign Out</p><p class="ms">See you next time</p></div><span class="ma">›</span></div></div></div><nav class="bottom-nav"><button class="nav-btn" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 8L10 2L17 8V17C17 17.6 16.6 18 16 18H13V13H7V18H4C3.4 18 3 17.6 3 17V8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Home</span></button><button class="nav-btn" onclick="openPanel('panel-destination')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C7.2 2 5 4.2 5 7C5 11 10 17 10 17C10 17 15 11 15 7C15 4.2 12.8 2 10 2Z" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg><span>Ride</span></button><button class="nav-btn" onclick="showToast('History coming soon')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8H13M7 11H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>History</span></button><button class="nav-btn active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 17C3 14.2 6.1 12 10 12C13.9 12 17 14.2 17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Profile</span></button></nav></div>
 </div>
-
+<!-- DESTINATION PANEL -->
+<div class="panel-overlay" id="panel-destination" onclick="handleOverlay(event,'panel-destination')"><div class="panel"><div class="panel-handle"></div><h3 class="panel-title">Where to?</h3><div class="panel-input-wrap"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#94a3b8" stroke-width="1.5"/><path d="M11 11L14 14" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/></svg><input type="text" id="dest-input" class="panel-input" placeholder="e.g. Kimironko, Kacyiru..." oninput="filterDest(this.value)"/></div><div id="suggestion-list"><div class="suggestion" onclick="chooseDest('Kimironko Market','4.2 km')"><div class="sugg-icon">🏪</div><div><p class="sn">Kimironko Market</p><p class="ss">Gasabo · 4.2 km</p></div></div><div class="suggestion" onclick="chooseDest('ALU Innovation City','1.1 km')"><div class="sugg-icon">🏫</div><div><p class="sn">ALU Innovation City</p><p class="ss">Kigali Innovation City · 1.1 km</p></div></div><div class="suggestion" onclick="chooseDest('Norrsken House','6.1 km')"><div class="sugg-icon">💼</div><div><p class="sn">Norrsken House</p><p class="ss">Kiyovu · 6.1 km</p></div></div><div class="suggestion" onclick="chooseDest('Kacyiru District Office','5.8 km')"><div class="sugg-icon">🏛️</div><div><p class="sn">Kacyiru District Office</p><p class="ss">Gasabo · 5.8 km</p></div></div><div class="suggestion" onclick="chooseDest('CHUK Hospital','7.3 km')"><div class="sugg-icon">🏥</div><div><p class="sn">CHUK Hospital</p><p class="ss">Nyarugenge · 7.3 km</p></div></div><div class="suggestion" onclick="chooseDest('Nyabugogo Terminal','8.0 km')"><div class="sugg-icon">🚌</div><div><p class="sn">Nyabugogo Terminal</p><p class="ss">Nyarugenge · 8.0 km</p></div></div></div><button class="btn-primary btn-full mt8" onclick="confirmDest()">Confirm Destination</button></div></div>
 <div class="toast" id="toast"></div>
-<script src="app.js"></script>
+<script>
+const S={cur:'screen-splash',step:1,lang:'en',veh:'moto',pay:'mtn',dest:'Kimironko Market',dist:'4.2 km',fare:{total:1130},ci:null};
+const T={en:{g:'Mwaramutse, Keza 👋',s:'Where are you headed today?',p:'Where do you want to go?',b:'Get Started',l:'I Have an Account'},rw:{g:'Mwaramutse, Keza 👋',s:'Ujya he none uyu munsi?',p:'Ujya he?',b:'Tangira',l:'Mfite konti'}};
+function tick(){const n=new Date(),e=document.getElementById('status-time');if(e)e.textContent=`${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`}
+setInterval(tick,10000);tick();
+function goto(id){if(S.cur===id)return;document.getElementById(S.cur)?.classList.remove('active');document.getElementById(id)?.classList.add('active');S.cur=id;if(id==='screen-booking')gotoStep(S.step||1);if(id==='screen-tracking')startCd()}
+function gotoStep(n){goto('screen-booking');S.step=n;[1,2,3].forEach(i=>{const d=document.getElementById('sd'+i),l=document.getElementById('sl'+i);if(!d)return;d.className='step-dot';if(i<n){d.classList.add('done');d.textContent='✓'}else if(i===n){d.classList.add('active');d.textContent=i}else d.textContent=i;if(l)l.classList.toggle('done',i<n)});const tt={1:'Choose Route',2:'Your Fixed Fare',3:'Driver Matched'},e=document.getElementById('booking-title');if(e)e.textContent=tt[n];const b=document.getElementById('booking-body');if(!b)return;b.innerHTML=n===1?r1():n===2?r2():r3();b.classList.add('fade-in');setTimeout(()=>b.classList.remove('fade-in'),400)}
+function r1(){const bus=S.veh==='bus';return`<div class="loc-card"><div class="loc-row"><div class="loc-dot pickup"></div><div class="loc-text"><div class="loc-label">Pickup</div><div class="loc-value">Kigali Innovation City ✓</div></div><span class="loc-action">Change</span></div><div class="loc-row" onclick="openPanel('panel-destination')"><div class="loc-dot drop"></div><div class="loc-text"><div class="loc-label">Drop-off</div><div class="loc-value">${S.dest}</div></div><span class="loc-action">✏️</span></div></div><button class="gps-btn" onclick="showToast('📍 Location detected: Innovation City')">📍 &nbsp;Use My Location (GPS)</button><div class="map-preview"><div class="map-grid-bg"></div><div class="map-pin-preview">📍</div></div><p class="section-label" style="margin-bottom:10px">Vehicle Type</p><div class="vehicle-picker"><div class="vehicle-card ${!bus?'selected':''}" id="v-moto" onclick="selV('moto')"><div class="v-emoji">🏍️</div><div class="v-name">Moto</div><div class="v-sub">1–2 passengers</div><div class="v-price">From 500 RWF</div></div><div class="vehicle-card ${bus?'selected':''}" id="v-bus" onclick="selV('bus')"><div class="v-emoji">🚌</div><div class="v-name">Bus</div><div class="v-sub">Shared ride</div><div class="v-price">From 350 RWF</div></div></div><button class="btn-primary btn-full" onclick="gotoStep(2)">→ &nbsp;View Fare Breakdown</button>`}
+function r2(){const km=parseFloat(S.dist),dc=Math.round(km*150),sub=500+dc,mod=S.veh==='bus'?.7:1,tot=Math.round(sub*mod),pf=Math.round(tot*.12);S.fare.total=tot;['payment-total','receipt-total'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=tot.toLocaleString()+' RWF'});const rv=document.getElementById('receipt-vehicle');if(rv)rv.textContent=S.veh==='bus'?'Bus (shared)':'Moto';const sd=document.getElementById('success-dest');if(sd)sd.textContent=S.dest;return`<div class="fare-card"><h3>💰 Your Fare Breakdown</h3><div class="fare-row"><span class="fl">Base fare</span><span class="fv">500 RWF</span></div><div class="fare-row"><span class="fl">${S.dist} × 150 RWF/km</span><span class="fv">${dc} RWF</span></div><div class="fare-row"><span class="fl">Vehicle modifier</span><span class="fv">${S.veh==='bus'?'×0.7 shared':'×1.0 solo'}</span></div><div class="fare-row"><span class="fl">Platform fee (12%)</span><span class="fv">${pf} RWF</span></div><div class="fare-row total"><span class="fl">You Pay</span><span class="fv">${tot.toLocaleString()} RWF</span></div></div><div class="eta-bar"><div class="eta-item"><span class="eta-big">3</span><span class="eta-sm">min to driver</span></div><div class="eta-item"><span class="eta-big">12</span><span class="eta-sm">min journey</span></div><div class="eta-item"><span class="eta-big">${S.dist}</span><span class="eta-sm">km total</span></div></div><div class="fixed-note">✅ This fare is fixed and will not change.</div><button class="btn-primary btn-full" onclick="gotoStep(3)" style="margin-bottom:10px">🔒 &nbsp;Confirm Fare &amp; Match Driver</button><button class="btn-outline btn-full" onclick="gotoStep(1)">← Change Route</button>`}
+function r3(){return`<div style="text-align:center;padding:10px 0 16px"><div style="font-size:14px;color:var(--muted)">Driver matched ✅</div><div style="font-size:12px;color:var(--muted);margin-top:4px">Gasabo Riders' Cooperative · Reg. 2021</div></div><div class="driver-card fade-in"><div class="driver-top"><div class="driver-av-wrap">JP</div><div><div class="driver-name">Jean-Pierre Habimana</div><div class="driver-coop">Gasabo Riders' Cooperative</div><div class="stars-row"><span class="star-s">★</span><span class="star-s">★</span><span class="star-s">★</span><span class="star-s">★</span><span class="star-s">★</span><span class="stars-count">4.9 (312 trips)</span></div></div></div><div class="driver-details"><div class="detail-pill"><div class="dp-lbl">Plate</div><div class="dp-val">RAC 487 B</div></div><div class="detail-pill"><div class="dp-lbl">Colour</div><div class="dp-val">Green / Black</div></div><div class="detail-pill"><div class="dp-lbl">Vehicle</div><div class="dp-val">Honda CG 125</div></div><div class="detail-pill"><div class="dp-lbl">Helmet</div><div class="dp-val">✅ Provided</div></div></div><div class="verified-tag">✅ Identity Verified by Konekt</div><button class="share-trip-btn" onclick="showToast('Trip link shared on WhatsApp!')">📤 Share Trip for Safety</button></div><button class="btn-primary btn-full" onclick="goto('screen-payment')">📱 &nbsp;Proceed to Payment</button>`}
+function selV(t){S.veh=t;document.getElementById('v-moto')?.classList.toggle('selected',t==='moto');document.getElementById('v-bus')?.classList.toggle('selected',t==='bus')}
+function quickBook(d,km){S.dest=d;S.dist=km;S.step=1;goto('screen-booking');gotoStep(1)}
+function openPanel(id){document.getElementById(id)?.classList.add('open')}
+function closePanel(id){document.getElementById(id)?.classList.remove('open')}
+function handleOverlay(e,id){if(e.target===e.currentTarget)closePanel(id)}
+function filterDest(v){document.querySelectorAll('#suggestion-list .suggestion').forEach(i=>{const n=i.querySelector('.sn')?.textContent?.toLowerCase()||'';i.style.display=n.includes(v.toLowerCase())||!v?'':'none'})}
+function chooseDest(d,km){S.dest=d;S.dist=km;const i=document.getElementById('dest-input');if(i)i.value=d}
+function confirmDest(){closePanel('panel-destination');S.step=1;goto('screen-booking');gotoStep(1)}
+function selectPayment(t){S.pay=t;['mtn','airtel','cash'].forEach(x=>{document.getElementById('pm-'+x)?.classList.toggle('selected',x===t);const r=document.getElementById('radio-'+x);if(r)r.className='pm-radio'+(x===t?' sel':'')})}
+function confirmPayment(){const l=S.pay==='mtn'?'MTN MoMo':S.pay==='airtel'?'Airtel Money':'Cash';showToast('Payment via '+l+' confirmed');setTimeout(()=>goto('screen-tracking'),1000);startCd()}
+function startCd(){if(S.ci)clearInterval(S.ci);let c=3;S.ci=setInterval(()=>{c--;const e=document.getElementById('eta-num'),s=document.getElementById('track-status');if(e)e.textContent=c;if(c<=0){clearInterval(S.ci);if(s)s.textContent='Jean-Pierre has arrived!';if(e)e.textContent='0'}},1500)}
+function rateStar(n){document.querySelectorAll('#star-rating .star').forEach((s,i)=>s.classList.toggle('active',i<n));showToast(n>=4?'Thanks for the rating! 🙏':"We'll improve. Thanks!")}
+function setLang(lang,btn){S.lang=lang;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');const t=T[lang];[['greeting',t.g],['greeting-sub',t.s],['search-placeholder',t.p],['btn-start',t.b],['btn-login',t.l],['lang-display',lang==='en'?'English':'Kinyarwanda']].forEach(([id,v])=>{const e=document.getElementById(id);if(e)e.textContent=v});showToast(lang==='rw'?'Ururimi: Kinyarwanda ✓':'Language: English ✓')}
+function cycleLanguage(){const n=S.lang==='en'?'rw':'en';setLang(n,document.querySelector(`.lang-btn[onclick*="'${n}'"]`))}
+function showToast(m){const t=document.getElementById('toast');if(!t)return;t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+document.addEventListener('DOMContentLoaded',()=>{tick();S.step=1});
+</script>
 </body>
 </html>
