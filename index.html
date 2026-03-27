@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0D4F8A" />
+  <meta name="description" content="Konekt by Sankofa — Clarity Before You Ride. Rwanda's first guaranteed fixed-fare transport platform." />
+  <title>Konekt by Sankofa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <span id="status-time">9:41</span>
+    <div class="status-icons">
+      <svg width="17" height="12" viewBox="0 0 17 12"><rect x="0" y="5" width="2.5" height="7" rx="0.8" fill="white" opacity="0.5"/><rect x="4" y="3" width="2.5" height="9" rx="0.8" fill="white" opacity="0.7"/><rect x="8" y="1" width="2.5" height="11" rx="0.8" fill="white"/><rect x="12.5" y="0" width="2.5" height="12" rx="0.8" fill="white"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 3C10.5 3 12.7 4.1 14.2 5.8L15.6 4.3C13.7 2.2 11 1 8 1C5 1 2.3 2.2 0.4 4.3L1.8 5.8C3.3 4.1 5.5 3 8 3Z" fill="white" opacity="0.45"/><path d="M8 6C9.7 6 11.2 6.7 12.3 7.8L13.7 6.4C12.2 4.9 10.2 4 8 4C5.8 4 3.8 4.9 2.3 6.4L3.7 7.8C4.8 6.7 6.3 6 8 6Z" fill="white" opacity="0.7"/><circle cx="8" cy="11" r="1.5" fill="white"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="2.5" stroke="white" stroke-opacity="0.4"/><rect x="2" y="2" width="17" height="8" rx="1.5" fill="white"/><path d="M24 4V8C24.9 7.6 25.5 6.9 25.5 6C25.5 5.1 24.9 4.4 24 4Z" fill="white" fill-opacity="0.4"/></svg>
+    </div>
+  </div>
+
+  <!-- SPLASH -->
+  <div class="screen active" id="screen-splash">
+    <div class="splash-bg"></div>
+    <div class="splash-content">
+      <div class="splash-logo">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <path d="M18 8C18 8 9 18 9 28C9 36 13.5 43 20 47" stroke="#2EAB5F" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M38 8C38 8 47 18 47 28C47 36 42.5 43 36 47" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-opacity="0.65"/>
+          <circle cx="18" cy="28" r="7.5" fill="#2EAB5F"/>
+          <circle cx="38" cy="28" r="7.5" fill="white" fill-opacity="0.85"/>
+          <path d="M18 35.5L28 48L38 35.5" stroke="#2EAB5F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="28" cy="48" r="3.5" fill="white"/>
+        </svg>
+      </div>
+      <h1 class="splash-brand">konekt</h1>
+      <p class="splash-by">by <span>SANKOFA</span></p>
+      <p class="splash-tagline">Clarity Before You Ride</p>
+      <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLang('en',this)">English</button>
+        <button class="lang-btn" onclick="setLang('rw',this)">Kinyarwanda</button>
+      </div>
+      <div class="splash-stats">
+        <div class="stat-card"><strong>Fixed</strong><span>Fares Always</span></div>
+        <div class="stat-card"><strong>500+</strong><span>Drivers</span></div>
+        <div class="stat-card"><strong>24/7</strong><span>Available</span></div>
+      </div>
+      <button class="btn-primary btn-full" onclick="goto('screen-home')" id="btn-start">Get Started</button>
+      <button class="btn-ghost btn-full" onclick="goto('screen-home')" id="btn-login">I Have an Account</button>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="screen" id="screen-home">
+    <div class="home-header">
+      <div class="home-header-row">
+        <div>
+          <h2 class="greeting" id="greeting">Mwaramutse, Keza 👋</h2>
+          <p class="greeting-sub" id="greeting-sub">Where are you headed today?</p>
+        </div>
+        <button class="avatar-btn" onclick="goto('screen-profile')">KU</button>
+      </div>
+      <div class="search-bar" onclick="openPanel('panel-destination')">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#94a3b8" stroke-width="1.5"/><path d="M11 11L14 14" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span id="search-placeholder">Where do you want to go?</span>
+      </div>
+    </div>
+    <div class="home-body">
+      <div class="quick-grid">
+        <div class="quick-card" onclick="quickBook('ALU Innovation City','1.1 km')"><div class="quick-icon" style="background:#eff6ff">🏫</div><p class="quick-name">ALU Campus</p><p class="quick-loc">Innovation City</p></div>
+        <div class="quick-card" onclick="quickBook('Kimironko Market','4.2 km')"><div class="quick-icon" style="background:#fff7ed">🏪</div><p class="quick-name">Kimironko</p><p class="quick-loc">Market</p></div>
+        <div class="quick-card" onclick="quickBook('Kacyiru Office','5.8 km')"><div class="quick-icon" style="background:#f0fdf4">🏛️</div><p class="quick-name">Kacyiru</p><p class="quick-loc">District</p></div>
+        <div class="quick-card" onclick="quickBook('CHUK Hospital','7.3 km')"><div class="quick-icon" style="background:#fff1f2">🏥</div><p class="quick-name">CHUK</p><p class="quick-loc">Hospital</p></div>
+      </div>
+
+      <p class="section-label">Your Riders' Circle</p>
+      <div class="krc-card" onclick="showToast('KRC: 160 pts to Gold Guardian!')">
+        <div class="krc-header">
+          <div><span class="krc-badge">🥈 Silver Champion</span><div class="krc-pts">340</div><div class="krc-pts-lbl">Clarity Points</div></div>
+          <div class="krc-next"><p class="krc-next-lbl">Next tier</p><p class="krc-next-val">500 pts</p><p class="krc-next-name">Gold Guardian</p></div>
+        </div>
+        <div class="krc-bar"><div class="krc-fill" style="width:68%"></div></div>
+        <div class="krc-foot"><span>160 pts to Gold</span><span>23 rides</span></div>
+      </div>
+
+      <p class="section-label">Recent Rides</p>
+      <div class="ride-item" onclick="goto('screen-tracking')">
+        <div class="ride-icon-wrap moto">🏍️</div>
+        <div class="ride-info"><p class="ride-route">Innovation City → Kimironko</p><p class="ride-meta">Today · 08:12 · Jean-Pierre</p></div>
+        <span class="ride-price">1,130 RWF</span>
+      </div>
+      <div class="ride-item">
+        <div class="ride-icon-wrap moto">🏍️</div>
+        <div class="ride-info"><p class="ride-route">Kacyiru → Remera</p><p class="ride-meta">Yesterday · 17:45 · Alexis</p></div>
+        <span class="ride-price">965 RWF</span>
+      </div>
+      <div class="ride-item" style="margin-bottom:100px">
+        <div class="ride-icon-wrap bus">🚌</div>
+        <div class="ride-info"><p class="ride-route">Nyabugogo → Gikondo</p><p class="ride-meta">Mon · 07:30 · Bus Line 12</p></div>
+        <span class="ride-price">854 RWF</span>
+      </div>
+    </div>
+    <nav class="bottom-nav">
+      <button class="nav-btn active" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 8L10 2L17 8V17C17 17.6 16.6 18 16 18H13V13H7V18H4C3.4 18 3 17.6 3 17V8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Home</span></button>
+      <button class="nav-btn" onclick="openPanel('panel-destination')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C7.2 2 5 4.2 5 7C5 11 10 17 10 17C10 17 15 11 15 7C15 4.2 12.8 2 10 2Z" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg><span>Ride</span></button>
+      <button class="nav-btn" onclick="showToast('History coming soon')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8H13M7 11H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>History</span></button>
+      <button class="nav-btn" onclick="goto('screen-profile')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 17C3 14.2 6.1 12 10 12C13.9 12 17 14.2 17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Profile</span></button>
+    </nav>
+  </div>
+
+  <!-- BOOKING -->
+  <div class="screen" id="screen-booking">
+    <div class="top-bar">
+      <button class="back-btn" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 15L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <h2 class="top-bar-title" id="booking-title">Choose Route</h2>
+      <div style="width:36px"></div>
+    </div>
+    <div class="steps">
+      <div class="step-dot active" id="sd1">1</div>
+      <div class="step-line" id="sl1"></div>
+      <div class="step-dot" id="sd2">2</div>
+      <div class="step-line" id="sl2"></div>
+      <div class="step-dot" id="sd3">3</div>
+    </div>
+    <div class="booking-body" id="booking-body"></div>
+    <nav class="bottom-nav">
+      <button class="nav-btn" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 8L10 2L17 8V17C17 17.6 16.6 18 16 18H13V13H7V18H4C3.4 18 3 17.6 3 17V8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Home</span></button>
+      <button class="nav-btn active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C7.2 2 5 4.2 5 7C5 11 10 17 10 17C10 17 15 11 15 7C15 4.2 12.8 2 10 2Z" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg><span>Ride</span></button>
+      <button class="nav-btn" onclick="showToast('History coming soon')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8H13M7 11H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>History</span></button>
+      <button class="nav-btn" onclick="goto('screen-profile')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 17C3 14.2 6.1 12 10 12C13.9 12 17 14.2 17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Profile</span></button>
+    </nav>
+  </div>
+
+  <!-- PAYMENT -->
+  <div class="screen" id="screen-payment">
+    <div class="top-bar">
+      <button class="back-btn" onclick="gotoStep(3)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 15L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <h2 class="top-bar-title">Choose Payment</h2>
+      <div style="width:36px"></div>
+    </div>
+    <div class="screen-body">
+      <div class="fare-total-pill">
+        <div><p class="ftl">Total to Pay</p><p class="fta" id="payment-total">1,130 RWF</p></div>
+        <span class="locked-pill">🔒 Fixed</span>
+      </div>
+      <div class="pm-list">
+        <div class="pm-item selected" id="pm-mtn" onclick="selectPayment('mtn')"><div class="pm-logo mtn">MTN</div><div class="pm-info"><p class="pm-name">MTN Mobile Money</p><p class="pm-sub">Balance: 12,500 RWF</p></div><div class="pm-radio sel" id="radio-mtn"></div></div>
+        <div class="pm-item" id="pm-airtel" onclick="selectPayment('airtel')"><div class="pm-logo airtel">AIR</div><div class="pm-info"><p class="pm-name">Airtel Money</p><p class="pm-sub">+250 78X XXX XXX</p></div><div class="pm-radio" id="radio-airtel"></div></div>
+        <div class="pm-item" id="pm-cash" onclick="selectPayment('cash')"><div class="pm-logo cash">💵</div><div class="pm-info"><p class="pm-name">Cash</p><p class="pm-sub">Pay driver directly</p></div><div class="pm-radio" id="radio-cash"></div></div>
+      </div>
+      <div class="info-note">💡 Payment is deducted only after your ride completes successfully.</div>
+      <button class="btn-primary btn-full" onclick="confirmPayment()">✓ &nbsp;Confirm &amp; Start Ride</button>
+    </div>
+  </div>
+
+  <!-- TRACKING -->
+  <div class="screen" id="screen-tracking">
+    <div class="track-map">
+      <div class="map-grid"></div>
+      <div class="map-road-h"></div>
+      <div class="map-road-v"></div>
+      <div class="map-route"></div>
+      <div class="track-end">🏁</div>
+      <div class="track-moto" id="track-moto">🏍️</div>
+      <div class="track-start">📍</div>
+      <button class="map-back" onclick="goto('screen-home')">← Back</button>
+    </div>
+    <div class="track-panel">
+      <div class="live-status"><div class="pulse"></div><span id="track-status">Jean-Pierre is 3 min away</span></div>
+      <div class="eta-row">
+        <div class="eta-card"><p class="eta-num" id="eta-num">3</p><p class="eta-lbl">min pickup</p></div>
+        <div class="eta-card"><p class="eta-num">12</p><p class="eta-lbl">min journey</p></div>
+        <div class="eta-card"><p class="eta-num">4.2</p><p class="eta-lbl">km total</p></div>
+      </div>
+      <div class="driver-mini">
+        <div class="driver-av">JP</div>
+        <div class="driver-mi">
+          <p class="driver-mn">Jean-Pierre Habimana</p>
+          <p class="driver-ms">RAC 487 B · Green Honda CG 125</p>
+          <div class="stars-sm">★★★★★ <span>4.9</span></div>
+        </div>
+        <button class="call-btn" onclick="showToast('Calling driver...')">📞</button>
+      </div>
+      <div class="track-btns">
+        <button class="btn-danger" onclick="showToast('Emergency contacts notified!')">🚨 Emergency</button>
+        <button class="btn-green" onclick="showToast('Trip shared on WhatsApp!')">📤 Share Trip</button>
+      </div>
+      <button class="btn-primary btn-full" onclick="goto('screen-success')">✓ &nbsp;I Arrived — Complete Trip</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="screen" id="screen-success">
+    <div class="screen-body success-body">
+      <div class="success-icon">✅</div>
+      <h2 class="success-h">Ride Complete!</h2>
+      <p class="success-p">You arrived safely at <strong id="success-dest">Kimironko Market</strong>.</p>
+      <div class="points-card">
+        <p class="pts-label">🎯 Clarity Points Earned</p>
+        <p class="pts-num">+15 pts</p>
+        <p class="pts-sub">Total: 355 pts · 145 pts to Gold Guardian</p>
+      </div>
+      <div class="rating-block">
+        <p class="rating-prompt">How was Jean-Pierre?</p>
+        <div class="stars-lg" id="star-rating">
+          <span class="star" onclick="rateStar(1)">⭐</span>
+          <span class="star" onclick="rateStar(2)">⭐</span>
+          <span class="star" onclick="rateStar(3)">⭐</span>
+          <span class="star" onclick="rateStar(4)">⭐</span>
+          <span class="star" onclick="rateStar(5)">⭐</span>
+        </div>
+      </div>
+      <div class="receipt">
+        <div class="receipt-row"><span>Distance</span><span>4.2 km</span></div>
+        <div class="receipt-row"><span>Duration</span><span>11 min</span></div>
+        <div class="receipt-row"><span>Vehicle</span><span id="receipt-vehicle">Moto</span></div>
+        <div class="receipt-row receipt-total"><span>Paid (MTN MoMo)</span><span id="receipt-total">1,130 RWF</span></div>
+      </div>
+      <button class="btn-primary btn-full" onclick="goto('screen-home')">🏠 &nbsp;Back to Home</button>
+      <button class="btn-outline btn-full" onclick="goto('screen-booking');gotoStep(1)">🏍️ &nbsp;Book Another Ride</button>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="screen" id="screen-profile">
+    <div class="profile-header">
+      <div class="profile-av">KU</div>
+      <h2 class="profile-name">Keza Uwimana</h2>
+      <p class="profile-email">keza.uwimana@alustudent.com</p>
+    </div>
+    <div class="screen-body" style="margin-top:-28px">
+      <div class="profile-stats">
+        <div class="ps-row"><span class="ps-lbl">KRC Tier</span><span class="ps-val tier">🥈 Silver Champion</span></div>
+        <div class="ps-row"><span class="ps-lbl">Clarity Points</span><span class="ps-val blue">340 pts</span></div>
+        <div class="ps-row"><span class="ps-lbl">Total Rides</span><span class="ps-val">23 rides</span></div>
+        <div class="ps-row"><span class="ps-lbl">Saved vs Haggling</span><span class="ps-val green">≈ 8,400 RWF</span></div>
+        <div class="ps-row last"><span class="ps-lbl">Member Since</span><span class="ps-val">January 2026</span></div>
+      </div>
+      <div class="menu-list">
+        <div class="menu-row" onclick="showToast('Payment methods')"><div class="menu-ico" style="background:#eff6ff">💳</div><div><p class="mn">Payment Methods</p><p class="ms">MTN MoMo · Airtel Money</p></div><span class="ma">›</span></div>
+        <div class="menu-row" onclick="showToast('Safety contacts saved')"><div class="menu-ico" style="background:#f0fdf4">🛡️</div><div><p class="mn">Safety Contacts</p><p class="ms">2 contacts saved</p></div><span class="ma">›</span></div>
+        <div class="menu-row" onclick="cycleLanguage()"><div class="menu-ico" style="background:#fff7ed">🌍</div><div><p class="mn">Language</p><p class="ms" id="lang-display">English</p></div><span class="ma">›</span></div>
+        <div class="menu-row" onclick="showToast('Support chat opened')"><div class="menu-ico" style="background:#fff1f2">💬</div><div><p class="mn">Help &amp; Support</p><p class="ms">Chat or call us</p></div><span class="ma">›</span></div>
+        <div class="menu-row last" onclick="goto('screen-splash')"><div class="menu-ico" style="background:#f8fafc">🚪</div><div><p class="mn">Sign Out</p><p class="ms">See you next time</p></div><span class="ma">›</span></div>
+      </div>
+    </div>
+    <nav class="bottom-nav">
+      <button class="nav-btn" onclick="goto('screen-home')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 8L10 2L17 8V17C17 17.6 16.6 18 16 18H13V13H7V18H4C3.4 18 3 17.6 3 17V8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Home</span></button>
+      <button class="nav-btn" onclick="openPanel('panel-destination')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2C7.2 2 5 4.2 5 7C5 11 10 17 10 17C10 17 15 11 15 7C15 4.2 12.8 2 10 2Z" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/></svg><span>Ride</span></button>
+      <button class="nav-btn" onclick="showToast('History coming soon')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8H13M7 11H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>History</span></button>
+      <button class="nav-btn active"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 17C3 14.2 6.1 12 10 12C13.9 12 17 14.2 17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Profile</span></button>
+    </nav>
+  </div>
+
+</div><!-- /#app -->
+
+<!-- DESTINATION PANEL -->
+<div class="panel-overlay" id="panel-destination" onclick="handleOverlay(event,'panel-destination')">
+  <div class="panel">
+    <div class="panel-handle"></div>
+    <h3 class="panel-title">Where to?</h3>
+    <div class="panel-input-wrap">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#94a3b8" stroke-width="1.5"/><path d="M11 11L14 14" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <input type="text" id="dest-input" class="panel-input" placeholder="e.g. Kimironko, Kacyiru..." oninput="filterDest(this.value)" />
+    </div>
+    <div id="suggestion-list">
+      <div class="suggestion" onclick="chooseDest('Kimironko Market','4.2 km')"><div class="sugg-icon">🏪</div><div><p class="sn">Kimironko Market</p><p class="ss">Gasabo · 4.2 km</p></div></div>
+      <div class="suggestion" onclick="chooseDest('ALU Innovation City','1.1 km')"><div class="sugg-icon">🏫</div><div><p class="sn">ALU Innovation City</p><p class="ss">Kigali Innovation City · 1.1 km</p></div></div>
+      <div class="suggestion" onclick="chooseDest('Norrsken House','6.1 km')"><div class="sugg-icon">💼</div><div><p class="sn">Norrsken House</p><p class="ss">Kiyovu · 6.1 km</p></div></div>
+      <div class="suggestion" onclick="chooseDest('Kacyiru District Office','5.8 km')"><div class="sugg-icon">🏛️</div><div><p class="sn">Kacyiru District Office</p><p class="ss">Gasabo · 5.8 km</p></div></div>
+      <div class="suggestion" onclick="chooseDest('CHUK Hospital','7.3 km')"><div class="sugg-icon">🏥</div><div><p class="sn">CHUK Hospital</p><p class="ss">Nyarugenge · 7.3 km</p></div></div>
+      <div class="suggestion" onclick="chooseDest('Nyabugogo Terminal','8.0 km')"><div class="sugg-icon">🚌</div><div><p class="sn">Nyabugogo Terminal</p><p class="ss">Nyarugenge · 8.0 km</p></div></div>
+    </div>
+    <button class="btn-primary btn-full" onclick="confirmDest()">Confirm Destination</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
